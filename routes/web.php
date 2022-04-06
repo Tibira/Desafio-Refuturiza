@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [\App\Http\controllers\PrincipalController::class, 'index'])->name('site.index');
+
+Route::get('/login', [\App\Http\controllers\LoginController::class, 'index'])->name('site.login');
+Route::post('/login', [\App\Http\controllers\LoginController::class, 'autenticar'])->name('site.login');
+
+
+
+Route::prefix('/app')->group(function(){
+
+});
+
+Route::fallback(function(){
+    Route::get('/fallback', );
 });

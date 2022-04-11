@@ -8,9 +8,9 @@ use App\Models\User;
 class UsuarioController extends Controller{
 
     public function index(){
-        return view('usuario');
+        return view('site.cadastro');
     }
-    
+
     public function cadastro(Request $request){
 
         $request->validate([
@@ -22,7 +22,7 @@ class UsuarioController extends Controller{
         $usuario = new User();
 
         $usuario->create($request->all());
-        
-        return view('usuario.cadastro');
+
+        return view('site.cadastro');
     }
 }

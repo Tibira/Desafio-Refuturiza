@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('cadastro') }}">
+<form method="POST" action="{{ route('usuario.cadastro') }}">
     @csrf
     <x-input id="name" type="name" name="name" placeholder="Nome" :value="old('name')" required/>
     <x-input id="email" type="email" name="email" placeholder="E-mail" :value="old('email')" required/>

@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\controllers\PrincipalController::class, 'index'])->name('site.index');
+Route::get('/', [\App\Http\controllers\Auth\AuthenticatedSessionController::class, 'create'])->name('auth.login');
 Route::get('/cadastro', [\App\Http\controllers\UsuarioController::class, 'index'])->name('usuario.index');
 Route::post('/cadastro', [\App\Http\controllers\UsuarioController::class, 'cadastro'])->name('usuario.cadastro');
 
 
 Route::fallback(function(){
-    Route::get('/fallback', );
+    Route::get('/fallback');
 });
 
 Route::get('/dashboard', function () {

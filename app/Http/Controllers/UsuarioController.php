@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller{
 
@@ -21,7 +22,12 @@ class UsuarioController extends Controller{
 
         $usuario = new User();
 
-        $usuario->create($request->all());
+        $usuario->name = $request->input('name');
+        $usuario->email = $request->input('email');
+        $usuario->tipo = '2';
+        $usuario->password =  Hash::make($request->input('password'));
+
+        $usuario->save();
 
         return view('site.cadastro');
     }

@@ -14,19 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\controllers\Auth\AuthenticatedSessionController::class, 'create'])->name('auth.login');
+Route::get('/index', [\App\Http\controllers\UsuarioController::class, 'index'] )->middleware(['auth'])->name('index');
 
 Route::middleware('acesso')->group(function(){
-    Route::get('/cadastro', [\App\Http\controllers\UsuarioController::class, 'index'])->name('usuario.index');
+    Route::get('/cadastro', [\App\Http\controllers\UsuarioController::class, 'indexCadastro'])->name('usuario.index');
     Route::post('/cadastro', [\App\Http\controllers\UsuarioController::class, 'cadastro'])->name('usuario.cadastro');
 });
-
 
 Route::fallback(function(){
     Route::get('/fallback');
 });
-
-Route::get('/index', function () {
-    return view('site.index');
-})->middleware(['auth'])->name('index');
 
 require __DIR__.'/auth.php';

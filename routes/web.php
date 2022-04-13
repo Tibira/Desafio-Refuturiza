@@ -12,9 +12,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', [\App\Http\controllers\Auth\AuthenticatedSessionController::class, 'create'])->name('auth.login');
-Route::get('/index', [\App\Http\controllers\UsuarioController::class, 'index'] )->middleware(['auth'])->name('index');
+Route::get('/', [\App\Http\controllers\UsuarioController::class, 'index'])->name('index');
+Route::get('/index', [\App\Http\controllers\UsuarioController::class, 'index'])->middleware(['auth'])->name('index');
+Route::get('/desenvolvedor/{id}', [\App\Http\controllers\UsuarioController::class, 'desenvolvedor'])->name('desenvolvedor');
 
 Route::middleware('acesso')->group(function(){
     Route::get('/cadastro', [\App\Http\controllers\UsuarioController::class, 'indexCadastro'])->name('usuario.index');

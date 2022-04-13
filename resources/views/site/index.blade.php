@@ -1,11 +1,10 @@
-Index
-{{-- {{ $dados['login'] }} --}}
 <table>
+    @for ($i = 0; isset($dados[$i]); $i++)
     <tr>
-        @foreach ($dados as $dado)
-
-        <th>{{ $dado['login'] }}</th>
-
-        @endforeach
+        <td>
+            {{ $dados[$i]->login}}
+        </td>
     </tr>
+    @endfor
 </table>
+{{ $dados->links() }}

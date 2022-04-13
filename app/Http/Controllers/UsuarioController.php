@@ -5,19 +5,36 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 
 class UsuarioController extends Controller{
 
     public function index(){
+
         $client = new \GuzzleHttp\Client(["verify" => false]);
-        $response = json_decode($client->request('GET', 'https://api.github.com/users?since=2019')->getBody());
-        $dados = array($response);
-        // dd($dados);
-        return view('site.index')->with('dados',$dados);
+        $response = json_decode($client->request('GET', 'https://api.github.com/users?since=XXX')->getBody());
+        $response = $this->paginate($response);
+        return view('site.index')->with('dados',$response);
     }
-    //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
+
     public function indexCadastro(){
         return view('site.cadastro');
+    }
+
+    public function paginate($items, $perPage = 10, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
+
+    public function desenvolvedor(int $id){
+        $client = new \GuzzleHttp\Client(["verify" => false]);
+        $response = json_decode($client->request('GET', "https://api.github.com/user/$id")->getBody());
+
+        return view('site.cadastro')->with('dados', $dados);
     }
 
     public function cadastro(Request $request){
